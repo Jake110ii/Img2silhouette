@@ -31,6 +31,8 @@ class Img2silhouette():
         self.mode_switch = "onclick"
         self.first_flg = "first"
         self.btn_flg = "off"
+        self.onclick_num_counter = 0
+        self.btn_silhouette_fist_flg = "first"
 
         # motion
         self.gco = None
@@ -55,6 +57,7 @@ class Img2silhouette():
 
                 self.cur.set_data(x, y)
                 self.ln.set_data(self.x, self.y)
+                self.onclick_num_counter += 1
                 plt.draw()
 
     def btn_silhouette_click(self, event):
@@ -62,12 +65,23 @@ class Img2silhouette():
             self.line_pre.remove()
 
         # nearest sort
-        #self.x, self.y = near.nearest_sort(self.x, self.y)
-        if self.first_flg != "first":
-            self.x, self.y = pmani.sort_shortest_distance(self.x[:-1], self.y[:-1], self.x[-1], self.y[-1])
+        ori_x = self.x
+        ori_y = self.y
+        if self.btn_silhouette_fist_flg != "first":
+            cur_x = self.x[:-self.onclick_num_counter]
+            cur_y = self.y[:-self.onclick_num_counter]
+            new_x = self.x[-self.onclick_num_counter:]
+            new_y = self.y[-self.onclick_num_counter:]
+            for _i in range(self.onclick_num_counter):
+                cur_x, cur_y = pmani.sort_shortest_distance(cur_x, cur_y, new_x[_i], new_y[_i])
+            self.x = cur_x
+            self.y = cur_y
         self.line_pre, = self.ax0.plot(self.x + [self.x[0]], self.y + [self.y[0]], "o-", picker=15, color="black")
         self.cur.set_data(self.x[0], self.y[0])
         self.ln.set_data(self.x, self.y)
+
+        self.onclick_num_counter = 0
+        self.btn_silhouette_fist_flg = "second"
         plt.draw()
         
     # motion
@@ -166,6 +180,7 @@ class Btn2mode:
         if self.img2silhouette.line_pre is not None:
             self.img2silhouette.line_pre.remove()
             self.img2silhouette.line_pre = None
+        self.img2silhouette.btn_silhouette_fist_flg = "first"
         plt.draw()
 
     def btn_switch_mode_click(self, event):
