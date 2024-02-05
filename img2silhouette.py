@@ -42,7 +42,7 @@ class Img2silhouette():
         self.onp_id = None
         
         # image file
-        self.car_file_path = "./input/car.png"
+        self.car_file_path = "./input/hayabusa.jpg"
         self.imshow_id = None
 
     def onclick(self, event):
