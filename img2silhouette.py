@@ -184,18 +184,19 @@ class Btn2mode:
         plt.draw()
 
     def btn_switch_mode_click(self, event):
-        if self.img2silhouette.mode_switch == "onclick":
-            self.img2silhouette.mode_switch = "motion"
-            print("Switched to motion mode")
-            self.img2silhouette.setup_callbacks()
-            self.btn_flg = "on"
-            self.img2silhouette.line_pre.set_color('red')
-        elif self.img2silhouette.mode_switch == "motion":
-            self.img2silhouette.mode_switch = "onclick"
-            print("Switched to onclick mode")
-            self.img2silhouette.setup_callbacks()
-            self.img2silhouette.btn_flg = "on"
-            self.img2silhouette.line_pre.set_color('black')
+        if self.img2silhouette.line_pre is not None:
+            if self.img2silhouette.mode_switch == "onclick":
+                self.img2silhouette.mode_switch = "motion"
+                print("Switched to motion mode")
+                self.img2silhouette.setup_callbacks()
+                self.btn_flg = "on"
+                self.img2silhouette.line_pre.set_color('red')
+            elif self.img2silhouette.mode_switch == "motion":
+                self.img2silhouette.mode_switch = "onclick"
+                print("Switched to onclick mode")
+                self.img2silhouette.setup_callbacks()
+                self.img2silhouette.btn_flg = "on"
+                self.img2silhouette.line_pre.set_color('black')
 
         self.img2silhouette.ax0.set_title('mode = {}'.format(self.img2silhouette.mode_switch))
         plt.draw()
@@ -212,7 +213,6 @@ class Btn2mode:
         self.btn_clear.on_clicked(self.btn_clear_click)
         self.btn_switch_mode.on_clicked(self.btn_switch_mode_click)
         self.btn_file_upload.on_clicked(self.btn_file_upload_click)
-
 
 fig = plt.figure(figsize=(8, 6))
 
