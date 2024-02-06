@@ -151,11 +151,8 @@ class Img2silhouette():
         img = Image.open(self.car_file_path)
         #fig.patch.set_facecolor('white')
         self.ax0.set_facecolor('white')
-
-        # 背景に画像を貼り付け
         self.imshow_id = self.ax0.imshow(img, extent=[0, img.size[0], 0, img.size[1]], aspect='equal', alpha=0.3)
 
-        # その他のプロット設定など...
         self.ax0.set_xlim(0-img.size[0]*0.1, img.size[0]*(1+0.1))
         self.ax0.set_ylim(0-img.size[1]*0.1, img.size[1]*(1+0.1))
 
