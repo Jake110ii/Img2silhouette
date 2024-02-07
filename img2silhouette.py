@@ -76,12 +76,13 @@ class Img2silhouette():
                 cur_x, cur_y = pmani.sort_shortest_distance(cur_x, cur_y, new_x[_i], new_y[_i])
             self.x = cur_x
             self.y = cur_y
-        self.line_pre, = self.ax0.plot(self.x + [self.x[0]], self.y + [self.y[0]], "o-", picker=15, color="black")
-        self.cur.set_data(self.x[0], self.y[0])
-        self.ln.set_data(self.x, self.y)
+        if self.x != []:
+            self.line_pre, = self.ax0.plot(self.x + [self.x[0]], self.y + [self.y[0]], "o-", picker=15, color="black")
+            self.cur.set_data(self.x[0], self.y[0])
+            self.ln.set_data(self.x, self.y)
 
-        self.onclick_num_counter = 0
-        self.btn_silhouette_fist_flg = "second"
+            self.onclick_num_counter = 0
+            self.btn_silhouette_fist_flg = "second"
         plt.draw()
         
     # motion
